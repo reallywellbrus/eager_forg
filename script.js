@@ -1,8 +1,6 @@
 /* ===== ДАННЫЕ ===== */
 
-// У каждого уровня — своя палитра цветов лягушек
 const LEVEL_FROG_COLORS = {
-  // Режим 1 — «Лесные» (оттенки зелёного)
   1: [
     { name: 'Зелёная',        color: '#4CAF50' },
     { name: 'Салатовая',      color: '#8BC34A' },
@@ -11,7 +9,6 @@ const LEVEL_FROG_COLORS = {
     { name: 'Болотная',       color: '#689F38' },
     { name: 'Оливковая',      color: '#827717' },
   ],
-  // Режим 2 — «Водные» (синие и голубые)
   2: [
     { name: 'Голубая',        color: '#2196F3' },
     { name: 'Бирюзовая',      color: '#00BCD4' },
@@ -20,7 +17,6 @@ const LEVEL_FROG_COLORS = {
     { name: 'Морская',        color: '#006064' },
     { name: 'Индиго',         color: '#303F9F' },
   ],
-  // Режим 3 — «Огненные» (тёплые)
   3: [
     { name: 'Оранжевая',      color: '#FF9800' },
     { name: 'Красная',        color: '#F44336' },
@@ -29,7 +25,6 @@ const LEVEL_FROG_COLORS = {
     { name: 'Золотая',        color: '#FFC107' },
     { name: 'Терракотовая',   color: '#E64A19' },
   ],
-  // Режим 4 — «Легендарные» (экзотика)
   4: [
     { name: 'Фиолетовая',     color: '#9C27B0' },
     { name: 'Розовая',        color: '#E91E63' },
@@ -111,6 +106,7 @@ let gameState = {
   currentDivisor: null,
   currentNumber: null,
   currentCorrect: null,
+  currentQuestionType: 'yesno',
   active: false,
   awaitingRetry: false,
 };
@@ -153,7 +149,6 @@ function loadState() {
   if (!saved) return;
   try {
     const parsed = JSON.parse(saved);
-    // Индексы цветов могут выйти за пределы новой палитры — зажимаем через %
     if (parsed.levelColorIndex) {
       for (let level = 1; level <= 4; level++) {
         const idx = parsed.levelColorIndex[level];
@@ -231,6 +226,7 @@ function startLevel(level) {
     currentDivisor: null,
     currentNumber: null,
     currentCorrect: null,
+    currentQuestionType: 'yesno',
     active: false,
     awaitingRetry: false,
   };
@@ -252,12 +248,15 @@ function renderPond() {
   const inner = document.getElementById('pond-inner');
   inner.innerHTML = '';
 
+  const padBg = 'radial-gradient(circle at 40% 40%, #81c784, #388e3c)';
+
   for (let i = 0; i <= 10; i++) {
     const slot = document.createElement('div');
     slot.className = 'pond-slot';
 
     const pad = document.createElement('div');
     pad.className = 'lily-pad';
+
     if (i === 0) {
       pad.classList.add('bank');
       pad.textContent = '🏞️';
@@ -266,7 +265,9 @@ function renderPond() {
       pad.textContent = '🏠';
     } else {
       pad.textContent = '🍃';
+      pad.style.background = padBg;
     }
+
     slot.appendChild(pad);
     inner.appendChild(slot);
   }
@@ -297,6 +298,14 @@ function updateStats() {
 }
 
 function generateQuestion() {
+  if (gameState.jumpsCompleted === 9) {
+    generateAppendQuestion();
+  } else {
+    generateRegularQuestion();
+  }
+}
+
+function generateRegularQuestion() {
   const divisors = gameState.divisors;
   const d = divisors[Math.floor(Math.random() * divisors.length)];
 
@@ -332,9 +341,13 @@ function generateQuestion() {
   gameState.currentDivisor = d;
   gameState.currentNumber = num;
   gameState.currentCorrect = correct;
+  gameState.currentQuestionType = 'yesno';
 
   document.getElementById('question-text').innerHTML =
     `Делится ли число <strong>${num}</strong> на <strong>${d}</strong>?`;
+
+  document.getElementById('answer-buttons').classList.remove('hidden');
+  document.getElementById('append-input-area').classList.add('hidden');
 
   const fb = document.getElementById('feedback');
   fb.textContent = '';
@@ -343,10 +356,41 @@ function generateQuestion() {
   document.getElementById('btn-yes').disabled = false;
   document.getElementById('btn-no').disabled = false;
   document.getElementById('btn-dont-know').disabled = false;
+  document.getElementById('btn-check-append').disabled = false;
+}
+
+function generateAppendQuestion() {
+  const divisors = gameState.divisors;
+  const d = divisors[Math.floor(Math.random() * divisors.length)];
+  const num = Math.floor(Math.random() * 900) + 100;
+
+  gameState.currentDivisor = d;
+  gameState.currentNumber = num;
+  gameState.currentCorrect = null;
+  gameState.currentQuestionType = 'append';
+
+  document.getElementById('question-text').innerHTML =
+    `Добавьте две цифры к числу <strong>${num}</strong>, чтобы оно делилось на <strong>${d}</strong>`;
+
+  document.getElementById('append-prefix').textContent = num;
+  const input = document.getElementById('append-input');
+  input.value = '';
+  input.disabled = false;
+
+  document.getElementById('answer-buttons').classList.add('hidden');
+  document.getElementById('append-input-area').classList.remove('hidden');
+
+  const fb = document.getElementById('feedback');
+  fb.textContent = '';
+  fb.className = 'feedback';
+
+  document.getElementById('btn-dont-know').disabled = false;
+  document.getElementById('btn-check-append').disabled = false;
 }
 
 function handleAnswer(userSaysDivisible) {
   if (!gameState.active || gameState.awaitingRetry) return;
+  if (gameState.currentQuestionType !== 'yesno') return;
   gameState.active = false;
 
   document.getElementById('btn-yes').disabled = true;
@@ -384,6 +428,57 @@ function handleAnswer(userSaysDivisible) {
   }
 }
 
+function handleAppendCheck() {
+  if (!gameState.active || gameState.awaitingRetry) return;
+  if (gameState.currentQuestionType !== 'append') return;
+
+  const input = document.getElementById('append-input');
+  const val = input.value.trim();
+
+  const fb = document.getElementById('feedback');
+
+  if (!/^\d{2}$/.test(val)) {
+    fb.textContent = 'Введите ровно 2 цифры';
+    fb.className = 'feedback wrong';
+    return;
+  }
+
+  gameState.active = false;
+  input.disabled = true;
+  document.getElementById('btn-check-append').disabled = true;
+  document.getElementById('btn-dont-know').disabled = true;
+
+  const newNum = gameState.currentNumber * 100 + parseInt(val, 10);
+  const isCorrect = newNum % gameState.currentDivisor === 0;
+
+  if (isCorrect) {
+    fb.textContent = `Верно! ${newNum} делится на ${gameState.currentDivisor} 🐸`;
+    fb.className = 'feedback correct';
+
+    gameState.jumpsCompleted++;
+    updateStats();
+
+    setTimeout(() => {
+      updateFrogPosition();
+      if (gameState.jumpsCompleted >= 10) {
+        endLevel();
+      } else {
+        generateQuestion();
+        gameState.active = true;
+      }
+    }, 900);
+  } else {
+    fb.textContent = `Неверно: ${newNum} не делится на ${gameState.currentDivisor} 😢`;
+    fb.className = 'feedback wrong';
+
+    gameState.mistakes++;
+    updateStats();
+
+    gameState.awaitingRetry = true;
+    document.getElementById('theory-prompt').classList.remove('hidden');
+  }
+}
+
 function handleDontKnow() {
   if (!gameState.active || gameState.awaitingRetry) return;
   gameState.active = false;
@@ -391,6 +486,8 @@ function handleDontKnow() {
   document.getElementById('btn-yes').disabled = true;
   document.getElementById('btn-no').disabled = true;
   document.getElementById('btn-dont-know').disabled = true;
+  document.getElementById('btn-check-append').disabled = true;
+  document.getElementById('append-input').disabled = true;
 
   const fb = document.getElementById('feedback');
   fb.textContent = '';
@@ -475,14 +572,12 @@ function showRulePage(index) {
   const rule = RULES[num];
 
   const exampleClean = rule.example.replace(/^Например,\s*/i, '');
-
   const match = exampleClean.match(/^(\d+)\s*:?\s+([\s\S]+)$/);
 
   let exampleHTML;
   if (match) {
     const numPart = match[1];
     const rest = match[2];
-
     const secondMatch = rest.match(/^([\s\S]+?)\.\s+А\s+(\d+)\s*:?\s+([\s\S]+)$/);
 
     if (secondMatch) {
@@ -601,6 +696,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.getElementById('btn-yes').addEventListener('click', () => handleAnswer(true));
   document.getElementById('btn-no').addEventListener('click', () => handleAnswer(false));
+  document.getElementById('btn-check-append').addEventListener('click', handleAppendCheck);
+
+  document.getElementById('append-input').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAppendCheck();
+    }
+  });
+
+  document.getElementById('append-input').addEventListener('input', (e) => {
+    e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2);
+  });
+
   document.getElementById('btn-dont-know').addEventListener('click', handleDontKnow);
 
   document.getElementById('btn-show-theory').addEventListener('click', () => {
