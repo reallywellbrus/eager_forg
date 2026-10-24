@@ -37,21 +37,6 @@ const LEVEL_FROG_COLORS = {
   ],
 };
 
-const PAD_THEMES = [
-  { name: 'Пруд',   bodyBg: 'linear-gradient(180deg, #87ceeb 0%, #b3e5fc 35%, #a5d6a7 100%)',
-    bg: 'radial-gradient(circle at 40% 40%, #81c784, #388e3c)', emojis: ['🍃','🪷','🌿','🍀','🌱'] },
-  { name: 'Лес',    bodyBg: 'linear-gradient(180deg, #c5e1a5 0%, #7cb342 50%, #33691e 100%)',
-    bg: 'radial-gradient(circle at 40% 40%, #aed581, #558b2f)', emojis: ['🍄','🌰','🌲','🪵','🌳'] },
-  { name: 'Пляж',   bodyBg: 'linear-gradient(180deg, #b3e5fc 0%, #4fc3f7 45%, #ffe082 100%)',
-    bg: 'radial-gradient(circle at 40% 40%, #ffe082, #ffb300)', emojis: ['🐚','🪨','🌴','🏖️','🦀'] },
-  { name: 'Сад',    bodyBg: 'linear-gradient(180deg, #f8bbd0 0%, #f06292 50%, #ad1457 100%)',
-    bg: 'radial-gradient(circle at 40% 40%, #f48fb1, #c2185b)', emojis: ['🌻','🌸','🍎','🍇','🌷'] },
-  { name: 'Космос', bodyBg: 'linear-gradient(180deg, #1a237e 0%, #311b92 50%, #000000 100%)',
-    bg: 'radial-gradient(circle at 40% 40%, #5c6bc0, #1a237e)', emojis: ['⭐','🌙','🪐','☄️','🌟'] },
-  { name: 'Зима',   bodyBg: 'linear-gradient(180deg, #e1f5fe 0%, #81d4fa 50%, #0277bd 100%)',
-    bg: 'radial-gradient(circle at 40% 40%, #81d4fa, #0277bd)', emojis: ['❄️','⛄','🧊','🌨️','🎿'] },
-];
-
 function getLevelFrogColor(level, index) {
   const palette = LEVEL_FROG_COLORS[level];
   return palette[index % palette.length];
@@ -124,7 +109,6 @@ let gameState = {
   currentQuestionType: 'yesno',
   active: false,
   awaitingRetry: false,
-  padTheme: null,
 };
 
 let dictionaryFromGame = false;
@@ -154,9 +138,6 @@ function frogSVG(color) {
 function showScreen(id) {
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  if (id === 'menu-screen') {
-    document.body.style.backgroundImage = '';
-  }
 }
 
 function saveState() {
@@ -248,7 +229,6 @@ function startLevel(level) {
     currentQuestionType: 'yesno',
     active: false,
     awaitingRetry: false,
-    padTheme: null,
   };
 
   showScreen('game-screen');
@@ -268,25 +248,12 @@ function renderPond() {
   const inner = document.getElementById('pond-inner');
   inner.innerHTML = '';
 
-  // Первый уровень — всегда пруд (кувшинки). Остальные — случайная тема.
-  let theme;
-  if (gameState.level === 1) {
-    theme = PAD_THEMES[0];
-  } else {
-    theme = PAD_THEMES[Math.floor(Math.random() * PAD_THEMES.length)];
-  }
-  gameState.padTheme = theme;
-
-  // Фон страницы — под выпавшую тему
-  document.body.style.backgroundImage = theme.bodyBg;
-
   for (let i = 0; i <= 10; i++) {
     const slot = document.createElement('div');
     slot.className = 'pond-slot';
 
     const pad = document.createElement('div');
     pad.className = 'lily-pad';
-
     if (i === 0) {
       pad.classList.add('bank');
       pad.textContent = '🏞️';
@@ -294,10 +261,8 @@ function renderPond() {
       pad.classList.add('home-pad');
       pad.textContent = '🏠';
     } else {
-      pad.textContent = theme.emojis[Math.floor(Math.random() * theme.emojis.length)];
-      pad.style.background = theme.bg;
+      pad.textContent = '🍃';
     }
-
     slot.appendChild(pad);
     inner.appendChild(slot);
   }
@@ -328,6 +293,7 @@ function updateStats() {
 }
 
 function generateQuestion() {
+  // 10-й вопрос (когда на 9-й кувшинке) — специальный формат
   if (gameState.jumpsCompleted === 9) {
     generateAppendQuestion();
   } else {
@@ -392,7 +358,7 @@ function generateRegularQuestion() {
 function generateAppendQuestion() {
   const divisors = gameState.divisors;
   const d = divisors[Math.floor(Math.random() * divisors.length)];
-  const num = Math.floor(Math.random() * 900) + 100;
+  const num = Math.floor(Math.random() * 900) + 100; // 100–999
 
   gameState.currentDivisor = d;
   gameState.currentNumber = num;
