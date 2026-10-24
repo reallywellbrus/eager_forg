@@ -1,52 +1,45 @@
-/* ===== ДАННЫЕ ===== */
-
 const LEVEL_FROG_COLORS = {
   1: [
-    { name: 'Зелёная',        color: '#4CAF50' },
-    { name: 'Салатовая',      color: '#8BC34A' },
-    { name: 'Изумрудная',     color: '#009688' },
-    { name: 'Тёмно-зелёная',  color: '#2E7D32' },
-    { name: 'Болотная',       color: '#689F38' },
-    { name: 'Оливковая',      color: '#827717' },
+    { name: 'Зелёная', color: '#4CAF50' },
+    { name: 'Салатовая', color: '#8BC34A' },
+    { name: 'Изумрудная', color: '#009688' },
+    { name: 'Тёмно-зелёная', color: '#2E7D32' },
+    { name: 'Болотная', color: '#689F38' },
+    { name: 'Оливковая', color: '#827717' }
   ],
   2: [
-    { name: 'Голубая',        color: '#2196F3' },
-    { name: 'Бирюзовая',      color: '#00BCD4' },
-    { name: 'Синяя',          color: '#3F51B5' },
-    { name: 'Небесная',       color: '#03A9F4' },
-    { name: 'Морская',        color: '#006064' },
-    { name: 'Индиго',         color: '#303F9F' },
+    { name: 'Голубая', color: '#2196F3' },
+    { name: 'Бирюзовая', color: '#00BCD4' },
+    { name: 'Синяя', color: '#3F51B5' },
+    { name: 'Небесная', color: '#03A9F4' },
+    { name: 'Морская', color: '#006064' },
+    { name: 'Индиго', color: '#303F9F' }
   ],
   3: [
-    { name: 'Оранжевая',      color: '#FF9800' },
-    { name: 'Красная',        color: '#F44336' },
-    { name: 'Жёлтая',         color: '#FDD835' },
-    { name: 'Коралловая',     color: '#FF7043' },
-    { name: 'Золотая',        color: '#FFC107' },
-    { name: 'Терракотовая',   color: '#E64A19' },
+    { name: 'Оранжевая', color: '#FF9800' },
+    { name: 'Красная', color: '#F44336' },
+    { name: 'Жёлтая', color: '#FDD835' },
+    { name: 'Коралловая', color: '#FF7043' },
+    { name: 'Золотая', color: '#FFC107' },
+    { name: 'Терракотовая', color: '#E64A19' }
   ],
   4: [
-    { name: 'Фиолетовая',     color: '#9C27B0' },
-    { name: 'Розовая',        color: '#E91E63' },
-    { name: 'Пурпурная',      color: '#7B1FA2' },
-    { name: 'Малиновая',      color: '#C2185B' },
-    { name: 'Бронзовая',      color: '#795548' },
-    { name: 'Серебряная',     color: '#9E9E9E' },
-    { name: 'Золотая',        color: '#FFD700' },
-    { name: 'Изумрудная',     color: '#00695C' },
-  ],
+    { name: 'Фиолетовая', color: '#9C27B0' },
+    { name: 'Розовая', color: '#E91E63' },
+    { name: 'Пурпурная', color: '#7B1FA2' },
+    { name: 'Малиновая', color: '#C2185B' },
+    { name: 'Бронзовая', color: '#795548' },
+    { name: 'Серебряная', color: '#9E9E9E' },
+    { name: 'Золотая', color: '#FFD700' },
+    { name: 'Изумрудная', color: '#00695C' }
+  ]
 };
 
-function getLevelFrogColor(level, index) {
-  const palette = LEVEL_FROG_COLORS[level];
-  return palette[index % palette.length];
-}
-
 const LEVELS = {
-  1: { name: 'Признаки от 1 до 10',   divisors: [1,2,3,4,5,6,7,8,9,10] },
-  2: { name: 'Признаки от 10 до 20',  divisors: [10,11,12,13,14,15,16,17,18,19,20] },
-  3: { name: 'Остальные признаки',    divisors: [21,23,25,27,29,31,32,37] },
-  4: { name: 'Все признаки',          divisors: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37] }
+  1: { name: 'Признаки от 1 до 10', divisors: [1,2,3,4,5,6,7,8,9,10] },
+  2: { name: 'Признаки от 10 до 20', divisors: [10,11,12,13,14,15,16,17,18,19,20] },
+  3: { name: 'Остальные признаки', divisors: [21,23,25,27,29,31,32,37] },
+  4: { name: 'Все признаки', divisors: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37] }
 };
 
 const RULES = {
@@ -86,16 +79,14 @@ const RULES = {
   34: { title: 'Признак делимости на 34', text: 'Число делится на 34, если оно делится и на 2, и на 17.', example: 'Например, 102: чётное и 102 : 17 = 6, значит 102 делится на 34.' },
   35: { title: 'Признак делимости на 35', text: 'Число делится на 35, если оно делится и на 5, и на 7.', example: 'Например, 140: последняя цифра 0 (делится на 5), 140 : 7 = 20, значит 140 делится на 35.' },
   36: { title: 'Признак делимости на 36', text: 'Число делится на 36, если оно делится и на 4, и на 9.', example: 'Например, 144: 44 делится на 4, 1+4+4=9 (делится на 9), значит 144 делится на 36.' },
-  37: { title: 'Признак делимости на 37', text: 'Разбейте число на группы по 3 цифры справа и сложите их. Если сумма делится на 37, то и число делится на 37.', example: 'Например, 4551: 4 + 551 = 555; 555 : 37 = 15, значит 4551 делится на 37.' },
+  37: { title: 'Признак делимости на 37', text: 'Разбейте число на группы по 3 цифры справа и сложите их. Если сумма делится на 37, то и число делится на 37.', example: 'Например, 4551: 4 + 551 = 555; 555 : 37 = 15, значит 4551 делится на 37.' }
 };
-
-/* ===== СОСТОЯНИЕ ===== */
 
 const STORAGE_KEY = 'frogDivisibilityGame';
 
 const state = {
   levelColorIndex: { 1: 0, 2: 0, 3: 0, 4: 0 },
-  collectedFrogs: { 1: [], 2: [], 3: [], 4: [] },
+  collectedFrogs: { 1: [], 2: [], 3: [], 4: [] }
 };
 
 let gameState = {
@@ -108,36 +99,48 @@ let gameState = {
   currentCorrect: null,
   currentQuestionType: 'yesno',
   active: false,
-  awaitingRetry: false,
+  awaitingRetry: false
 };
 
 let dictionaryFromGame = false;
 let currentRuleIndex = 0;
-const ruleNumbers = Object.keys(RULES).map(Number).sort((a, b) => a - b);
+const ruleNumbers = Object.keys(RULES).map(Number).sort(function (a, b) { return a - b; });
 
-/* ===== ВСПОМОГАТЕЛЬНЫЕ ===== */
+function getLevelFrogColor(level, index) {
+  const palette = LEVEL_FROG_COLORS[level];
+  return palette[index % palette.length];
+}
+
+function setDisabled(id, value) {
+  const el = document.getElementById(id);
+  if (el) el.disabled = value;
+}
+
+function setHidden(id, hidden) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('hidden', hidden);
+}
 
 function frogSVG(color) {
-  return `
-    <svg viewBox="0 0 100 100" class="frog-svg" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="50" cy="68" rx="36" ry="26" fill="${color}"/>
-      <circle cx="28" cy="40" r="14" fill="${color}"/>
-      <circle cx="72" cy="40" r="14" fill="${color}"/>
-      <circle cx="28" cy="40" r="8" fill="white"/>
-      <circle cx="72" cy="40" r="8" fill="white"/>
-      <circle cx="29" cy="41" r="4" fill="#222"/>
-      <circle cx="71" cy="41" r="4" fill="#222"/>
-      <path d="M 36 72 Q 50 84 64 72" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-      <ellipse cx="50" cy="76" rx="17" ry="7" fill="rgba(255,255,255,0.22)"/>
-      <ellipse cx="16" cy="88" rx="11" ry="5" fill="${color}"/>
-      <ellipse cx="84" cy="88" rx="11" ry="5" fill="${color}"/>
-    </svg>
-  `;
+  return '<svg viewBox="0 0 100 100" class="frog-svg" xmlns="http://www.w3.org/2000/svg">' +
+    '<ellipse cx="50" cy="68" rx="36" ry="26" fill="' + color + '"/>' +
+    '<circle cx="28" cy="40" r="14" fill="' + color + '"/>' +
+    '<circle cx="72" cy="40" r="14" fill="' + color + '"/>' +
+    '<circle cx="28" cy="40" r="8" fill="white"/>' +
+    '<circle cx="72" cy="40" r="8" fill="white"/>' +
+    '<circle cx="29" cy="41" r="4" fill="#222"/>' +
+    '<circle cx="71" cy="41" r="4" fill="#222"/>' +
+    '<path d="M 36 72 Q 50 84 64 72" stroke="#222" stroke-width="2.5" fill="none" stroke-linecap="round"/>' +
+    '<ellipse cx="50" cy="76" rx="17" ry="7" fill="rgba(255,255,255,0.22)"/>' +
+    '<ellipse cx="16" cy="88" rx="11" ry="5" fill="' + color + '"/>' +
+    '<ellipse cx="84" cy="88" rx="11" ry="5" fill="' + color + '"/>' +
+    '</svg>';
 }
 
 function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.screen').forEach(function (s) { s.classList.remove('active'); });
+  const target = document.getElementById(id);
+  if (target) target.classList.add('active');
 }
 
 function saveState() {
@@ -162,8 +165,8 @@ function loadState() {
         if (Array.isArray(parsed.collectedFrogs[level])) {
           const len = LEVEL_FROG_COLORS[level].length;
           state.collectedFrogs[level] = parsed.collectedFrogs[level]
-            .filter(i => typeof i === 'number')
-            .map(i => i % len);
+            .filter(function (i) { return typeof i === 'number'; })
+            .map(function (i) { return i % len; });
         }
       }
     }
@@ -172,27 +175,12 @@ function loadState() {
   }
 }
 
-/* ===== ПОДСВЕТКА В СЛОВАРИКЕ ===== */
-
 const HIGHLIGHT_PHRASES = [
-  'четыре его последние цифры',
-  'две его последние цифры',
-  'три его последние цифры',
-  'пять его последних цифр',
-  'последние четыре цифры',
-  'его последняя цифра',
-  'последние две цифры',
-  'последние три цифры',
-  'последние пять цифр',
-  'последняя цифра',
-  'последнюю цифру',
-  'сумма его цифр',
-  'нечётных местах',
-  'чётных местах',
-  'сумму цифр',
-  'нечётная',
-  'чётная',
-  'Повторяйте',
+  'четыре его последние цифры', 'две его последние цифры', 'три его последние цифры',
+  'пять его последних цифр', 'последние четыре цифры', 'его последняя цифра',
+  'последние две цифры', 'последние три цифры', 'последние пять цифр',
+  'последняя цифра', 'последнюю цифру', 'сумма его цифр',
+  'нечётных местах', 'чётных местах', 'сумму цифр', 'нечётная', 'чётная', 'Повторяйте'
 ];
 
 function escapeRegex(s) {
@@ -200,26 +188,17 @@ function escapeRegex(s) {
 }
 
 function highlightText(text) {
-  const phraseRe = new RegExp(
-    '(' + HIGHLIGHT_PHRASES
-      .slice()
-      .sort((a, b) => b.length - a.length)
-      .map(escapeRegex)
-      .join('|') + ')',
-    'gi'
-  );
-
+  const sorted = HIGHLIGHT_PHRASES.slice().sort(function (a, b) { return b.length - a.length; });
+  const phraseRe = new RegExp('(' + sorted.map(escapeRegex).join('|') + ')', 'gi');
   let html = text.replace(phraseRe, '<span class="hl-word">$1</span>');
   html = html.replace(/\b(\d+)\b/g, '<span class="hl-num">$1</span>');
   return html;
 }
 
-/* ===== ЛОГИКА ИГРЫ ===== */
-
 function startLevel(level) {
   const levelData = LEVELS[level];
   gameState = {
-    level,
+    level: level,
     divisors: levelData.divisors,
     jumpsCompleted: 0,
     mistakes: 0,
@@ -228,35 +207,28 @@ function startLevel(level) {
     currentCorrect: null,
     currentQuestionType: 'yesno',
     active: false,
-    awaitingRetry: false,
+    awaitingRetry: false
   };
-
   showScreen('game-screen');
   renderPond();
   updateStats();
-
-  document.getElementById('theory-prompt').classList.add('hidden');
+  setHidden('theory-prompt', true);
   const fb = document.getElementById('feedback');
-  fb.textContent = '';
-  fb.className = 'feedback';
-
+  if (fb) { fb.textContent = ''; fb.className = 'feedback'; }
   generateQuestion();
   gameState.active = true;
 }
 
 function renderPond() {
   const inner = document.getElementById('pond-inner');
+  if (!inner) return;
   inner.innerHTML = '';
-
   const padBg = 'radial-gradient(circle at 40% 40%, #81c784, #388e3c)';
-
   for (let i = 0; i <= 10; i++) {
     const slot = document.createElement('div');
     slot.className = 'pond-slot';
-
     const pad = document.createElement('div');
     pad.className = 'lily-pad';
-
     if (i === 0) {
       pad.classList.add('bank');
       pad.textContent = '🏞️';
@@ -267,18 +239,15 @@ function renderPond() {
       pad.textContent = '🍃';
       pad.style.background = padBg;
     }
-
     slot.appendChild(pad);
     inner.appendChild(slot);
   }
-
   const colorData = getLevelFrogColor(gameState.level, state.levelColorIndex[gameState.level]);
   const frog = document.createElement('div');
   frog.id = 'frog';
   frog.className = 'frog';
   frog.innerHTML = frogSVG(colorData.color);
   inner.appendChild(frog);
-
   updateFrogPosition();
 }
 
@@ -291,10 +260,10 @@ function updateFrogPosition() {
 }
 
 function updateStats() {
-  document.getElementById('jump-counter').textContent =
-    `Кувшинка ${gameState.jumpsCompleted} / 10`;
-  document.getElementById('mistake-counter').textContent =
-    `Ошибки: ${gameState.mistakes}`;
+  const jc = document.getElementById('jump-counter');
+  const mc = document.getElementById('mistake-counter');
+  if (jc) jc.textContent = 'Кувшинка ' + gameState.jumpsCompleted + ' / 10';
+  if (mc) mc.textContent = 'Ошибки: ' + gameState.mistakes;
 }
 
 function generateQuestion() {
@@ -308,20 +277,16 @@ function generateQuestion() {
 function generateRegularQuestion() {
   const divisors = gameState.divisors;
   const d = divisors[Math.floor(Math.random() * divisors.length)];
-
   let num;
   let correct;
-
   if (d === 1) {
     num = Math.floor(Math.random() * 9990) + 10;
     correct = true;
   } else {
     const shouldBeDivisible = Math.random() < 0.5;
     if (shouldBeDivisible) {
-      const min = 10;
-      const max = 9999;
-      const minK = Math.ceil(min / d);
-      const maxK = Math.floor(max / d);
+      const minK = Math.ceil(10 / d);
+      const maxK = Math.floor(9999 / d);
       let k;
       if (minK > maxK) {
         k = Math.floor(Math.random() * 5) + 1;
@@ -337,77 +302,58 @@ function generateRegularQuestion() {
       correct = false;
     }
   }
-
   gameState.currentDivisor = d;
   gameState.currentNumber = num;
   gameState.currentCorrect = correct;
   gameState.currentQuestionType = 'yesno';
-
-  document.getElementById('question-text').innerHTML =
-    `Делится ли число <strong>${num}</strong> на <strong>${d}</strong>?`;
-
-  document.getElementById('answer-buttons').classList.remove('hidden');
-  document.getElementById('append-input-area').classList.add('hidden');
-
+  const qt = document.getElementById('question-text');
+  if (qt) qt.innerHTML = 'Делится ли число <strong>' + num + '</strong> на <strong>' + d + '</strong>?';
+  setHidden('answer-buttons', false);
+  setHidden('append-input-area', true);
   const fb = document.getElementById('feedback');
-  fb.textContent = '';
-  fb.className = 'feedback';
-
-  document.getElementById('btn-yes').disabled = false;
-  document.getElementById('btn-no').disabled = false;
-  document.getElementById('btn-dont-know').disabled = false;
-  document.getElementById('btn-check-append').disabled = false;
+  if (fb) { fb.textContent = ''; fb.className = 'feedback'; }
+  setDisabled('btn-yes', false);
+  setDisabled('btn-no', false);
+  setDisabled('btn-dont-know', false);
+  setDisabled('btn-check-append', false);
 }
 
 function generateAppendQuestion() {
   const divisors = gameState.divisors;
   const d = divisors[Math.floor(Math.random() * divisors.length)];
   const num = Math.floor(Math.random() * 900) + 100;
-
   gameState.currentDivisor = d;
   gameState.currentNumber = num;
   gameState.currentCorrect = null;
   gameState.currentQuestionType = 'append';
-
-  document.getElementById('question-text').innerHTML =
-    `Добавьте две цифры к числу <strong>${num}</strong>, чтобы оно делилось на <strong>${d}</strong>`;
-
-  document.getElementById('append-prefix').textContent = num;
+  const qt = document.getElementById('question-text');
+  if (qt) qt.innerHTML = 'Добавьте две цифры к числу <strong>' + num + '</strong>, чтобы оно делилось на <strong>' + d + '</strong>';
+  const prefix = document.getElementById('append-prefix');
+  if (prefix) prefix.textContent = num;
   const input = document.getElementById('append-input');
-  input.value = '';
-  input.disabled = false;
-
-  document.getElementById('answer-buttons').classList.add('hidden');
-  document.getElementById('append-input-area').classList.remove('hidden');
-
+  if (input) { input.value = ''; input.disabled = false; }
+  setHidden('answer-buttons', true);
+  setHidden('append-input-area', false);
   const fb = document.getElementById('feedback');
-  fb.textContent = '';
-  fb.className = 'feedback';
-
-  document.getElementById('btn-dont-know').disabled = false;
-  document.getElementById('btn-check-append').disabled = false;
+  if (fb) { fb.textContent = ''; fb.className = 'feedback'; }
+  setDisabled('btn-dont-know', false);
+  setDisabled('btn-check-append', false);
 }
 
 function handleAnswer(userSaysDivisible) {
   if (!gameState.active || gameState.awaitingRetry) return;
   if (gameState.currentQuestionType !== 'yesno') return;
   gameState.active = false;
-
-  document.getElementById('btn-yes').disabled = true;
-  document.getElementById('btn-no').disabled = true;
-  document.getElementById('btn-dont-know').disabled = true;
-
+  setDisabled('btn-yes', true);
+  setDisabled('btn-no', true);
+  setDisabled('btn-dont-know', true);
   const isCorrect = userSaysDivisible === gameState.currentCorrect;
   const fb = document.getElementById('feedback');
-
   if (isCorrect) {
-    fb.textContent = 'Верно! 🐸';
-    fb.className = 'feedback correct';
-
+    if (fb) { fb.textContent = 'Верно! 🐸'; fb.className = 'feedback correct'; }
     gameState.jumpsCompleted++;
     updateStats();
-
-    setTimeout(() => {
+    setTimeout(function () {
       updateFrogPosition();
       if (gameState.jumpsCompleted >= 10) {
         endLevel();
@@ -417,48 +363,35 @@ function handleAnswer(userSaysDivisible) {
       }
     }, 700);
   } else {
-    fb.textContent = 'Неверно 😢';
-    fb.className = 'feedback wrong';
-
+    if (fb) { fb.textContent = 'Неверно 😢'; fb.className = 'feedback wrong'; }
     gameState.mistakes++;
     updateStats();
-
     gameState.awaitingRetry = true;
-    document.getElementById('theory-prompt').classList.remove('hidden');
+    setHidden('theory-prompt', false);
   }
 }
 
 function handleAppendCheck() {
   if (!gameState.active || gameState.awaitingRetry) return;
   if (gameState.currentQuestionType !== 'append') return;
-
   const input = document.getElementById('append-input');
-  const val = input.value.trim();
-
+  const val = input ? input.value.trim() : '';
   const fb = document.getElementById('feedback');
-
   if (!/^\d{2}$/.test(val)) {
-    fb.textContent = 'Введите ровно 2 цифры';
-    fb.className = 'feedback wrong';
+    if (fb) { fb.textContent = 'Введите ровно 2 цифры'; fb.className = 'feedback wrong'; }
     return;
   }
-
   gameState.active = false;
-  input.disabled = true;
-  document.getElementById('btn-check-append').disabled = true;
-  document.getElementById('btn-dont-know').disabled = true;
-
+  setDisabled('append-input', true);
+  setDisabled('btn-check-append', true);
+  setDisabled('btn-dont-know', true);
   const newNum = gameState.currentNumber * 100 + parseInt(val, 10);
   const isCorrect = newNum % gameState.currentDivisor === 0;
-
   if (isCorrect) {
-    fb.textContent = `Верно! ${newNum} делится на ${gameState.currentDivisor} 🐸`;
-    fb.className = 'feedback correct';
-
+    if (fb) { fb.textContent = 'Верно! ' + newNum + ' делится на ' + gameState.currentDivisor + ' 🐸'; fb.className = 'feedback correct'; }
     gameState.jumpsCompleted++;
     updateStats();
-
-    setTimeout(() => {
+    setTimeout(function () {
       updateFrogPosition();
       if (gameState.jumpsCompleted >= 10) {
         endLevel();
@@ -468,96 +401,77 @@ function handleAppendCheck() {
       }
     }, 900);
   } else {
-    fb.textContent = `Неверно: ${newNum} не делится на ${gameState.currentDivisor} 😢`;
-    fb.className = 'feedback wrong';
-
+    if (fb) { fb.textContent = 'Неверно: ' + newNum + ' не делится на ' + gameState.currentDivisor + ' 😢'; fb.className = 'feedback wrong'; }
     gameState.mistakes++;
     updateStats();
-
     gameState.awaitingRetry = true;
-    document.getElementById('theory-prompt').classList.remove('hidden');
+    setHidden('theory-prompt', false);
   }
 }
 
 function handleDontKnow() {
   if (!gameState.active || gameState.awaitingRetry) return;
   gameState.active = false;
-
-  document.getElementById('btn-yes').disabled = true;
-  document.getElementById('btn-no').disabled = true;
-  document.getElementById('btn-dont-know').disabled = true;
-  document.getElementById('btn-check-append').disabled = true;
-  document.getElementById('append-input').disabled = true;
-
+  setDisabled('btn-yes', true);
+  setDisabled('btn-no', true);
+  setDisabled('btn-dont-know', true);
+  setDisabled('btn-check-append', true);
+  setDisabled('append-input', true);
   const fb = document.getElementById('feedback');
-  fb.textContent = '';
-  fb.className = 'feedback';
-
+  if (fb) { fb.textContent = ''; fb.className = 'feedback'; }
   gameState.mistakes++;
   updateStats();
-
   dictionaryFromGame = true;
   openDictionary(gameState.currentDivisor);
 }
 
 function endLevel() {
   gameState.active = false;
-
   const mistakes = gameState.mistakes;
   const earned = mistakes <= 1;
-
   const titleEl = document.getElementById('result-title');
   const textEl = document.getElementById('result-text');
   const frogEl = document.getElementById('result-frog');
-
   if (earned) {
     const level = gameState.level;
     const colorIndex = state.levelColorIndex[level];
     const colorData = getLevelFrogColor(level, colorIndex);
-
     state.collectedFrogs[level].push(colorIndex);
     state.levelColorIndex[level] = (colorIndex + 1) % LEVEL_FROG_COLORS[level].length;
     saveState();
-
-    titleEl.textContent = '🎉 Уровень пройден!';
-    textEl.textContent = `Ошибок: ${mistakes}. Вы получаете лягушку цвета «${colorData.name}»!`;
-    frogEl.innerHTML = frogSVG(colorData.color);
-    frogEl.classList.remove('hidden');
+    if (titleEl) titleEl.textContent = '🎉 Уровень пройден!';
+    if (textEl) textEl.textContent = 'Ошибок: ' + mistakes + '. Вы получаете лягушку цвета «' + colorData.name + '»!';
+    if (frogEl) { frogEl.innerHTML = frogSVG(colorData.color); frogEl.classList.remove('hidden'); }
   } else {
-    titleEl.textContent = '😢 Уровень пройден, но...';
-    textEl.textContent = `Ошибок: ${mistakes}. Чтобы получить лягушку, нужно пройти уровень максимум с одной ошибкой. Попробуйте ещё раз!`;
-    frogEl.innerHTML = '';
-    frogEl.classList.add('hidden');
+    if (titleEl) titleEl.textContent = '😢 Уровень пройден, но...';
+    if (textEl) textEl.textContent = 'Ошибок: ' + mistakes + '. Чтобы получить лягушку, нужно пройти уровень максимум с одной ошибкой. Попробуйте ещё раз!';
+    if (frogEl) { frogEl.innerHTML = ''; frogEl.classList.add('hidden'); }
   }
-
   showScreen('result-screen');
 }
 
-/* ===== СЛОВАРИК ===== */
-
 function openDictionary(initialDivisor) {
-  document.getElementById('dictionary-modal').classList.remove('hidden');
+  const modal = document.getElementById('dictionary-modal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
   renderBookTabs();
-
   if (initialDivisor && RULES[initialDivisor]) {
     const idx = ruleNumbers.indexOf(initialDivisor);
-    if (idx !== -1) {
-      showRulePage(idx);
-      return;
-    }
+    if (idx !== -1) { showRulePage(idx); return; }
   }
   showRulePage(0);
 }
 
 function renderBookTabs() {
   const tabsEl = document.getElementById('book-tabs');
+  if (!tabsEl) return;
   tabsEl.innerHTML = '';
-  ruleNumbers.forEach((num, idx) => {
+  ruleNumbers.forEach(function (num, idx) {
     const tab = document.createElement('div');
     tab.className = 'book-tab';
     tab.textContent = num;
     tab.dataset.index = idx;
-    tab.addEventListener('click', () => showRulePage(idx));
+    tab.addEventListener('click', function () { showRulePage(idx); });
     tabsEl.appendChild(tab);
   });
 }
@@ -570,89 +484,74 @@ function showRulePage(index) {
   currentRuleIndex = index;
   const num = ruleNumbers[index];
   const rule = RULES[num];
-
   const exampleClean = rule.example.replace(/^Например,\s*/i, '');
   const match = exampleClean.match(/^(\d+)\s*:?\s+([\s\S]+)$/);
-
   let exampleHTML;
   if (match) {
     const numPart = match[1];
     const rest = match[2];
     const secondMatch = rest.match(/^([\s\S]+?)\.\s+А\s+(\d+)\s*:?\s+([\s\S]+)$/);
-
     if (secondMatch) {
-      const part1 = secondMatch[1];
-      const num2 = secondMatch[2];
-      const part2 = secondMatch[3];
-
-      exampleHTML = `
-        <div><strong>Пример:</strong> <span class="hl-num">${numPart}</span></div>
-        <div class="example-explanation">${highlightText(capFirst(part1))}</div>
-        <div class="example-second"><strong>Пример №2:</strong> <span class="hl-num">${num2}</span></div>
-        <div class="example-explanation">${highlightText(capFirst(part2))}</div>
-      `;
+      exampleHTML =
+        '<div><strong>Пример:</strong> <span class="hl-num">' + numPart + '</span></div>' +
+        '<div class="example-explanation">' + highlightText(capFirst(secondMatch[1])) + '</div>' +
+        '<div class="example-second"><strong>Пример №2:</strong> <span class="hl-num">' + secondMatch[2] + '</span></div>' +
+        '<div class="example-explanation">' + highlightText(capFirst(secondMatch[3])) + '</div>';
     } else {
-      exampleHTML = `
-        <div><strong>Пример:</strong> <span class="hl-num">${numPart}</span></div>
-        <div class="example-explanation">${highlightText(capFirst(rest))}</div>
-      `;
+      exampleHTML =
+        '<div><strong>Пример:</strong> <span class="hl-num">' + numPart + '</span></div>' +
+        '<div class="example-explanation">' + highlightText(capFirst(rest)) + '</div>';
     }
   } else {
-    exampleHTML = `<div>${highlightText(exampleClean)}</div>`;
+    exampleHTML = '<div>' + highlightText(exampleClean) + '</div>';
   }
-
-  document.getElementById('book-page').innerHTML = `
-    <h2>${rule.title}</h2>
-    <p>${highlightText(rule.text)}</p>
-    <div class="example-box">
-      ${exampleHTML}
-    </div>
-  `;
-
-  document.querySelectorAll('.book-tab').forEach((tab, i) => {
+  const page = document.getElementById('book-page');
+  if (page) {
+    page.innerHTML =
+      '<h2>' + rule.title + '</h2>' +
+      '<p>' + highlightText(rule.text) + '</p>' +
+      '<div class="example-box">' + exampleHTML + '</div>';
+  }
+  document.querySelectorAll('.book-tab').forEach(function (tab, i) {
     tab.classList.toggle('active', i === index);
   });
-
-  document.getElementById('book-page-indicator').textContent =
-    `${index + 1} / ${ruleNumbers.length}`;
-
+  const indicator = document.getElementById('book-page-indicator');
+  if (indicator) indicator.textContent = (index + 1) + ' / ' + ruleNumbers.length;
   const activeTab = document.querySelector('.book-tab.active');
   if (activeTab) activeTab.scrollIntoView({ block: 'nearest' });
 }
 
 function closeDictionary() {
-  document.getElementById('dictionary-modal').classList.add('hidden');
+  const modal = document.getElementById('dictionary-modal');
+  if (modal) modal.classList.add('hidden');
   if (dictionaryFromGame) {
     dictionaryFromGame = false;
     gameState.awaitingRetry = false;
-    document.getElementById('theory-prompt').classList.add('hidden');
+    setHidden('theory-prompt', true);
     generateQuestion();
     gameState.active = true;
   }
 }
 
-/* ===== ДОМИК ===== */
-
 function openHome() {
-  document.getElementById('home-modal').classList.remove('hidden');
+  const modal = document.getElementById('home-modal');
+  if (!modal) return;
+  modal.classList.remove('hidden');
   renderHome();
 }
 
 function renderHome() {
   const container = document.getElementById('home-frogs');
+  if (!container) return;
   container.innerHTML = '';
-
   for (let level = 1; level <= 4; level++) {
     const section = document.createElement('div');
     section.className = 'home-section';
-
     const title = document.createElement('h3');
     title.textContent = LEVELS[level].name;
     section.appendChild(title);
-
     const row = document.createElement('div');
     row.className = 'home-frogs-row';
-
     const frogs = state.collectedFrogs[level];
     if (frogs.length === 0) {
       const empty = document.createElement('span');
@@ -660,7 +559,7 @@ function renderHome() {
       empty.textContent = 'Пока нет лягушек';
       row.appendChild(empty);
     } else {
-      frogs.forEach(colorIndex => {
+      frogs.forEach(function (colorIndex) {
         const colorData = LEVEL_FROG_COLORS[level][colorIndex];
         const frogEl = document.createElement('div');
         frogEl.className = 'home-frog';
@@ -669,92 +568,84 @@ function renderHome() {
         row.appendChild(frogEl);
       });
     }
-
     section.appendChild(row);
     container.appendChild(section);
   }
 }
 
-/* ===== ИНИЦИАЛИЗАЦИЯ ===== */
+document.addEventListener('DOMContentLoaded', function () {
+  const on = function (id, event, handler) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener(event, handler);
+  };
 
-document.addEventListener('DOMContentLoaded', () => {
   loadState();
 
-  document.querySelectorAll('.level-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
+  document.querySelectorAll('.level-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
       const level = parseInt(btn.dataset.level, 10);
       startLevel(level);
     });
   });
 
-  document.getElementById('back-to-menu').addEventListener('click', () => {
+  on('back-to-menu', 'click', function () {
     if (gameState.active || gameState.awaitingRetry) {
       if (!confirm('Вы уверены, что хотите выйти? Прогресс уровня будет потерян.')) return;
     }
     showScreen('menu-screen');
   });
 
-  document.getElementById('btn-yes').addEventListener('click', () => handleAnswer(true));
-  document.getElementById('btn-no').addEventListener('click', () => handleAnswer(false));
-  document.getElementById('btn-check-append').addEventListener('click', handleAppendCheck);
+  on('btn-yes', 'click', function () { handleAnswer(true); });
+  on('btn-no', 'click', function () { handleAnswer(false); });
+  on('btn-check-append', 'click', handleAppendCheck);
+  on('btn-dont-know', 'click', handleDontKnow);
 
-  document.getElementById('append-input').addEventListener('keydown', (e) => {
-    if (e.key === 'Enter') {
-      e.preventDefault();
-      handleAppendCheck();
-    }
+  on('append-input', 'keydown', function (e) {
+    if (e.key === 'Enter') { e.preventDefault(); handleAppendCheck(); }
   });
-
-  document.getElementById('append-input').addEventListener('input', (e) => {
+  on('append-input', 'input', function (e) {
     e.target.value = e.target.value.replace(/\D/g, '').slice(0, 2);
   });
 
-  document.getElementById('btn-dont-know').addEventListener('click', handleDontKnow);
-
-  document.getElementById('btn-show-theory').addEventListener('click', () => {
+  on('btn-show-theory', 'click', function () {
     dictionaryFromGame = true;
     openDictionary(gameState.currentDivisor);
   });
-
-  document.getElementById('btn-skip-theory').addEventListener('click', () => {
-    document.getElementById('theory-prompt').classList.add('hidden');
+  on('btn-skip-theory', 'click', function () {
+    setHidden('theory-prompt', true);
     gameState.awaitingRetry = false;
     generateQuestion();
     gameState.active = true;
   });
 
-  document.getElementById('result-back-to-menu').addEventListener('click', () => {
-    showScreen('menu-screen');
-  });
-
-  document.getElementById('open-dictionary').addEventListener('click', () => openDictionary());
-  document.getElementById('close-dictionary').addEventListener('click', closeDictionary);
-  document.getElementById('book-prev').addEventListener('click', () => {
+  on('result-back-to-menu', 'click', function () { showScreen('menu-screen'); });
+  on('open-dictionary', 'click', function () { openDictionary(); });
+  on('close-dictionary', 'click', closeDictionary);
+  on('book-prev', 'click', function () {
     if (currentRuleIndex > 0) showRulePage(currentRuleIndex - 1);
   });
-  document.getElementById('book-next').addEventListener('click', () => {
+  on('book-next', 'click', function () {
     if (currentRuleIndex < ruleNumbers.length - 1) showRulePage(currentRuleIndex + 1);
   });
-
-  document.getElementById('open-home').addEventListener('click', openHome);
-  document.getElementById('close-home').addEventListener('click', () => {
-    document.getElementById('home-modal').classList.add('hidden');
+  on('open-home', 'click', openHome);
+  on('close-home', 'click', function () {
+    const m = document.getElementById('home-modal');
+    if (m) m.classList.add('hidden');
   });
 
-  document.querySelectorAll('.modal').forEach(modal => {
-    modal.addEventListener('click', (e) => {
+  document.querySelectorAll('.modal').forEach(function (modal) {
+    modal.addEventListener('click', function (e) {
       if (e.target !== modal) return;
       if (modal.id === 'dictionary-modal') closeDictionary();
       else modal.classList.add('hidden');
     });
   });
 
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', function (e) {
     if (e.key !== 'Escape') return;
-    if (!document.getElementById('dictionary-modal').classList.contains('hidden')) {
-      closeDictionary();
-    } else if (!document.getElementById('home-modal').classList.contains('hidden')) {
-      document.getElementById('home-modal').classList.add('hidden');
-    }
+    const dict = document.getElementById('dictionary-modal');
+    if (dict && !dict.classList.contains('hidden')) { closeDictionary(); return; }
+    const home = document.getElementById('home-modal');
+    if (home && !home.classList.contains('hidden')) home.classList.add('hidden');
   });
 });
