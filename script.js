@@ -366,7 +366,7 @@ function generateAppendQuestion() {
   gameState.currentQuestionType = 'append';
 
   document.getElementById('question-text').innerHTML =
-    `Добавьте две цифры к числу <strong>${num}</strong>, чтобы оно делилось на <strong>${d}</strong>`;
+    `Добавьте две цифры к числу <strong>${num}</strong>  чтобы оно делилось на <strong>${d}</strong>`;
 
   document.getElementById('append-prefix').textContent = num;
   const input = document.getElementById('append-input');
